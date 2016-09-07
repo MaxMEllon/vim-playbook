@@ -1,0 +1,13 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - apt: name={{item}}
+      with_items:
+        - mercurial
+        - ncurses-dev
+        - lua5.2
+        - lua5.2-dev
+        - luajit
+        - python-dev
+        - python3-dev
