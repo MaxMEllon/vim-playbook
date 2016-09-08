@@ -1,31 +1,15 @@
 ---
 - hosts: all
   tasks:
-    - name: (vim) exist check
-      shell: test -e /usr/local/bin/vim
-      register: exist_check
-      ignore_errors: yes
-
     - name: (vim) git clone
       git:
         repo: 'https://github.com/h-east/vim.git'
-        dest: /usr/local/src/vim
-        branch: master
+        dest: '/tmp/vim'
+        version: clpum
 
     - name: (vim) configure
-      shell: cd /usr/local/src/vim && ./configure
-        -with-features=huge
-        --enable-multibyte
-        --enable-luainterp=dynamic
-        --enable-gpm
-        --enable-cscope
-        --enable-fontset
-        --enable-fail-if-missing
-        --enable-perlinterp=yes
-        --enable-pythoninterp=yes
-        --enable-rubyinterp
-        --prefix=/usr/local
+      shell: cd /tmp/vim && ./configure -with-features=huge --enable-multibyte --enable-luainterp=dynamic --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --enable-pythoninterp --enable-rubyinterp --with-ruby-command=`which ruby` --prefix=/usr/local
 
     - name: (vim) make install
-        shell: cd /usr/local/src/vim && make && make instal
-
+      sudo: yes
+      shell: 'cd /tmp/vim && make && sudo make install'
