@@ -8,7 +8,19 @@
         version: clpum
 
     - name: (vim) configure
-      shell: cd /tmp/vim && ./configure -with-features=huge --enable-multibyte --enable-luainterp=dynamic --enable-gpm --enable-cscope --enable-fontset --enable-fail-if-missing --enable-pythoninterp --enable-rubyinterp --with-ruby-command=`which ruby` --prefix=/usr/local
+      shell: cd /tmp/vim &&
+        ./configure
+          --with-features=huge
+          --enable-multibyte
+          --enable-luainterp=dynamic
+          --enable-gpm
+          --enable-cscope
+          --enable-fontset
+          --enable-fail-if-missing
+          --enable-pythoninterp
+          --enable-rubyinterp
+          --with-ruby-command=`which ruby`
+          --prefix=/usr/local
 
     - name: (vim) make install
       sudo: yes
