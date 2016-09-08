@@ -15,7 +15,7 @@
     - name: (vimrc) git clone
       git:
         repo: 'https://github.com/MaxMEllon/.vim'
-        dest: '"{{ansible_home_result.stdout}}"/.vim'
+        dest: '{{ansible_home_result.stdout}}/.vim'
       when: exist_check|failed
 
     - name: (vimrc) install
