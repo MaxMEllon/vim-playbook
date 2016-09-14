@@ -1,23 +1,17 @@
 ---
 - hosts: all
-  pre_tasks:
-    - name: (env) Get ansible_user home directory
-      shell: 'getent passwd "{{ansible_ssh_user}}" | cut -d: -f6'
-      register: ansible_home_result
-
-- hosts: all
   tasks:
     - name: (vimrc) exist check
-      shell: 'test -e "{{ansible_home_result.stdout}}"/.vim'
+      shell: 'test -e "{{ansible_env.HOME}}"/.vim && test -e "{{ansible_env.HOME}}/.vim/install.sh"'
       register: exist_check
       ignore_errors: yes
 
     - name: (vimrc) git clone
       git:
         repo: 'https://github.com/MaxMEllon/.vim'
-        dest: '{{ansible_home_result.stdout}}/.vim'
+        dest: '{{ansible_env.HOME}}/.vim'
       when: exist_check|failed
 
     - name: (vimrc) install
-      shell: 'cd "{{ansible_home_result.stdout}}"/.vim && bash install.sh'
+      shell: 'cd "{{ansible_env.HOME}}"/.vim && bash install.sh'
 
